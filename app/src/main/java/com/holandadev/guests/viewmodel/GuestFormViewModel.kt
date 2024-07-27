@@ -1,6 +1,7 @@
-package com.holandadev.guests
+package com.holandadev.guests.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.holandadev.guests.repository.GuestRepository
 
 class GuestFormViewModel : ViewModel() {
 

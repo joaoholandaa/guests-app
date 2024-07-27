@@ -1,4 +1,4 @@
-package com.holandadev.guests
+package com.holandadev.guests.repository
 
 class GuestRepository private constructor() {
 
@@ -7,7 +7,7 @@ class GuestRepository private constructor() {
         private lateinit var repository: GuestRepository
 
         fun getInstance(): GuestRepository {
-            if (!::repository.isInitialized) {
+            if (!Companion::repository.isInitialized) {
                 repository = GuestRepository()
             }
             return repository
