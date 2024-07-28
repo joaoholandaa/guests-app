@@ -1,3 +1,3 @@
-package com.holandadev.guests
+package com.holandadev.guests.model
 
 data class GuestModel(val id: Int, var name: String, var presence: Boolean)
