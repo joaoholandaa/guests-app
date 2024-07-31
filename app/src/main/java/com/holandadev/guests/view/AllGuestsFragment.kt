@@ -8,7 +8,10 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.holandadev.guests.databinding.FragmentAllGuestsBinding
+import com.holandadev.guests.view.adapter.GuestsAdapter
 import com.holandadev.guests.viewmodel.AllGuestsViewModel
 
 class AllGuestsFragment : Fragment() {
@@ -19,22 +22,27 @@ class AllGuestsFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var viewModel: AllGuestsViewModel
+    private val adapter = GuestsAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        b: Bundle?
     ): View {
         viewModel = ViewModelProvider(this).get(AllGuestsViewModel::class.java)
-
         _binding = FragmentAllGuestsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+
+        // Layout
+        binding.recyclerAllGuests.layoutManager = LinearLayoutManager(context)
+
+        // Adapter
+        binding.recyclerAllGuests.adapter = adapter
 
         viewModel.getAll()
 
         observe()
 
-        return root
+        return binding.root
     }
 
     override fun onDestroyView() {
@@ -44,7 +52,7 @@ class AllGuestsFragment : Fragment() {
 
     private fun observe() {
         viewModel.guests.observe(viewLifecycleOwner) {
-            val s = ""
+            adapter.updateGuests(it)
         }
     }
 }
